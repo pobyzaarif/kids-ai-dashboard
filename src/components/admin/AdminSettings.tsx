@@ -13,6 +13,7 @@ import { useToast } from "@/components/ui/Toaster";
 import { apiFetch } from "@/lib/client";
 import type { FeatureRow } from "@/server/queries/features";
 import { FeatureDialog } from "./FeatureDialog";
+import { McpTestDialog } from "./McpTestDialog";
 
 export function AdminSettings({
   features: initialFeatures,
@@ -28,6 +29,7 @@ export function AdminSettings({
   const [creatingType, setCreatingType] = useState<"builtin" | "mcp" | null>(null);
   const [editing, setEditing] = useState<FeatureRow | null>(null);
   const [deleting, setDeleting] = useState<FeatureRow | null>(null);
+  const [recallTesting, setRecallTesting] = useState<FeatureRow | null>(null);
 
   // General settings form state
   const [siteName, setSiteName] = useState(
@@ -138,6 +140,15 @@ export function AdminSettings({
                 onChange={(isActive) => toggleActive(feature, isActive)}
                 label={`Toggle ${feature.name}`}
               />
+              {feature.type === "mcp" ? (
+                <Button
+                  variant="lime"
+                  size="sm"
+                  onClick={() => setRecallTesting(feature)}
+                >
+                  🧪 Recall test
+                </Button>
+              ) : null}
               <Button variant="secondary" size="sm" onClick={() => setEditing(feature)}>
                 Edit
               </Button>
@@ -293,6 +304,15 @@ export function AdminSettings({
             Delete feature
           </Button>
         </div>
+      </Dialog>
+
+      <Dialog
+        open={recallTesting !== null}
+        onClose={() => setRecallTesting(null)}
+        title={`Recall test — ${recallTesting?.name ?? ""}`}
+        wide
+      >
+        {recallTesting ? <McpTestDialog feature={recallTesting} /> : null}
       </Dialog>
     </div>
   );

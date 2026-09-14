@@ -10,7 +10,6 @@ export const signupSchema = z.object({
     .max(72),
   display_name: z.string().trim().min(1, "Display name is required").max(50),
 });
-
 export const loginSchema = z.object({
   email: z.string().trim().toLowerCase().email().max(255),
   password: z.string().min(1, "Password is required").max(72),
@@ -105,6 +104,19 @@ export const featureUpdateSchema = z.object({
 export const toggleFeatureSchema = z.object({
   enabled: z.boolean(),
 });
+
+/**
+ * Admin MCP "recall test" — either list the tools a registered endpoint
+ * exposes (`tools/list`) or invoke one of them (`tools/call`).
+ */
+export const mcpTestSchema = z.discriminatedUnion("action", [
+  z.object({ action: z.literal("list_tools") }),
+  z.object({
+    action: z.literal("call_tool"),
+    tool: z.string().trim().min(1, "Tool name is required").max(200),
+    arguments: z.record(z.unknown()).default({}),
+  }),
+]);
 
 /* -------------------------------- settings ------------------------------- */
 

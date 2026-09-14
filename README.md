@@ -19,6 +19,7 @@ features** per device. Admins manage the global **feature catalog**, register
 | | Activate/deactivate features per device (Toggle) |
 | Admin | Feature catalog CRUD (builtin + MCP endpoint entries with URL/auth/timeout) |
 | | MCP endpoint settings (`endpoint_url`, `auth_header`, `auth_token`, `timeout_ms`) — tokens are masked for regular users |
+| | MCP recall test per endpoint: list its tools (`tools/list`) and invoke any of them (`tools/call`) live from the console |
 | | Global settings: site name, max memories per device, default MCP timeout |
 
 ## Stack
@@ -102,6 +103,7 @@ conflict, 422 validation). Cookie: `kids_session` (httpOnly JWT).
 | GET | `/api/v1/features` | active catalog (`config` sanitized for non-admins) |
 | GET/POST | `/api/v1/admin/features` | admin: full catalog incl. MCP config |
 | PATCH/DELETE | `/api/v1/admin/features/:id` | admin: edit (partial config merge) / delete |
+| POST | `/api/v1/admin/features/:id/mcp` | admin: recall test — `{ action: "list_tools" }` / `{ action: "call_tool", tool, arguments }` |
 | GET/PUT | `/api/v1/admin/settings` | admin: known-key settings with type checking |
 
 ## Project structure

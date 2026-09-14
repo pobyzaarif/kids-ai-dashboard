@@ -2,17 +2,21 @@
 
 import { useEffect, type ReactNode } from "react";
 import { Button } from "./Button";
+import { cn } from "@/lib/cn";
 
 export function Dialog({
   open,
   onClose,
   title,
   children,
+  wide = false,
 }: {
   open: boolean;
   onClose: () => void;
   title: string;
   children: ReactNode;
+  /** Wider panel for content-heavy dialogs (e.g. the MCP recall test). */
+  wide?: boolean;
 }) {
   useEffect(() => {
     if (!open) return;
@@ -32,7 +36,12 @@ export function Dialog({
         if (event.target === event.currentTarget) onClose();
       }}
     >
-      <div className="w-full max-w-lg border-2 border-ink bg-white shadow-brutal-lg">
+      <div
+        className={cn(
+          "w-full border-2 border-ink bg-white shadow-brutal-lg",
+          wide ? "max-w-2xl" : "max-w-lg",
+        )}
+      >
         <div className="flex items-center justify-between border-b-2 border-ink bg-brand-cyan px-4 py-3">
           <h3 className="text-sm font-bold uppercase tracking-wide">{title}</h3>
           <Button variant="secondary" size="sm" onClick={onClose} aria-label="Close">
