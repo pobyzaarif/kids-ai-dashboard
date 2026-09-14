@@ -71,12 +71,12 @@ export function FeaturePanel({
                   </Badge>
                 </div>
                 <p className="text-xs font-medium text-gray-600">{feature.description}</p>
-                {feature.type === "mcp" ? (
+                {/* {feature.type === "mcp" ? (
                   <p className="mt-1 break-all font-mono text-[11px] text-gray-500">
                     {String(feature.config?.endpoint_url ?? "no endpoint configured")}
                     {feature.config?.auth_token ? " · 🔐 token set" : ""}
                   </p>
-                ) : null}
+                ) : null} */}
               </div>
               <Toggle
                 checked={Boolean(state[feature.id])}
