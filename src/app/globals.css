@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  /* System stack — hermetic (no Google Fonts fetch at build time). */
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+
+  --color-paper: #fffdf5;
+  --color-ink: #111111;
+
+  --color-brand-yellow: #ffd02f;
+  --color-brand-lime: #b8f135;
+  --color-brand-pink: #ff6fb5;
+  --color-brand-cyan: #6be4ff;
+  --color-brand-orange: #ff9f45;
+  --color-brand-red: #ff5d5d;
+  --color-brand-green: #3fd97f;
+  --color-brand-purple: #b694ff;
+
+  --shadow-brutal-xs: 1px 1px 0 0 var(--color-ink);
+  --shadow-brutal-sm: 2px 2px 0 0 var(--color-ink);
+  --shadow-brutal: 4px 4px 0 0 var(--color-ink);
+  --shadow-brutal-lg: 8px 8px 0 0 var(--color-ink);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-paper);
+    background-image: radial-gradient(rgba(17, 17, 17, 0.14) 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: -14px -14px;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    background-color: var(--color-brand-yellow);
+  }
+}
+
